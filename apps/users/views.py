@@ -1,6 +1,8 @@
-from django.contrib.auth import logout
-from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView, TemplateView
+from django.contrib.auth import logout, get_user_model
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, TemplateView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.views import LoginView, LogoutView
 
 from apps.users.models import CustomUser
@@ -9,6 +11,39 @@ from apps.users.models import CustomUser
 class StudentsListView(ListView):
     queryset = CustomUser.objects.filter(role=CustomUser.RoleChoices.Student.value)
     template_name = 'all-student.html'
+
+
+class StudentCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    model = get_user_model()
+    fields = ['first_name', 'last_name', 'father_name', 'mother_name', 'gender', 'date_of_birth', 'email',
+              'phone_number', 'password', 'student_group', 'address', ]
+
+    template_name = 'admit-form.html'
+    permission_required = ('users.add_customuser')
+    success_url = reverse_lazy('students_list-page')
+
+    def form_valid(self, form):
+        form.instance.role = CustomUser.RoleChoices.Student
+        return super().form_valid(form)
+
+
+class StudentDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    model = get_user_model()
+    template_name = 'student_delete.html'
+    permission_required = ('users.delete_customuser')
+    success_url = reverse_lazy('students_list-page')
+
+
+class StudentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model = get_user_model()
+    template_name = 'student_update.html'
+    permission_required = ('users.delete_customuser')
+    success_url = reverse_lazy('students_list-page')
+
+
+def form_valid(self, form):
+    form.instance.status = CustomUser.StatusChoices.student
+    return super().form_valid(form)
 
 
 class StudentDetailView(DetailView):
@@ -65,3 +100,10 @@ class StudentTemplateView(TemplateView):
 
 class ParentTemplateView(TemplateView):
     template_name = 'index4.html'
+
+
+class UserCreateView(CreateView):
+    template_name = 'account-settings.html'
+    model = CustomUser
+    fields = '__all__'
+    success_url = 'users-account-page'

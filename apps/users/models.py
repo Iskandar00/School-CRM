@@ -10,14 +10,14 @@ from apps.users.managers import CustomUserManager
 
 class CustomUser(AbstractUser):
     class RoleChoices(models.TextChoices):
-        Admin = 'admin', 'admin'
-        Teacher = 'teacher', 'teacher'
-        Student = 'student', 'student'
-        Parent = 'parent', 'parent'
+        Admin = 'admin'
+        Teacher = 'teacher'
+        Student = 'student'
+        Parent = 'parent'
 
     class GenderChoices(models.TextChoices):
-        Male = 'male', 'male'
-        Female = 'female', 'female'
+        Male = 'male'
+        Female = 'female'
 
     objects = CustomUserManager()
 
@@ -27,6 +27,7 @@ class CustomUser(AbstractUser):
     first_name = models.CharField(max_length=75)
     last_name = models.CharField(max_length=75)
     gender = models.CharField(max_length=10, choices=GenderChoices.choices)
+    image = models.ImageField(upload_to='users/image', blank=True, null=True)
     # oylik
     salary = models.DecimalField(max_digits=20, decimal_places=2, validators=[MinValueValidator(0)], default=0,
                                  blank=True, null=True)

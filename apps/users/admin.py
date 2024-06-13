@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from apps.users.models import CustomUser
+from django.contrib.auth.models import Permission
 
 
 @admin.register(CustomUser)
@@ -14,3 +15,8 @@ class CustomUserAdmin(admin.ModelAdmin):
               'user_permissions', 'is_staff', 'last_login', 'gender', 'father_name', 'mother_name', 'salary',
               'student_group', 'date_of_birth',
               'child', 'address', ]
+
+
+@admin.register(Permission)
+class CustomUserAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'content_type']

@@ -1,0 +1,34 @@
+{% extends 'base/base.html' %}
+{% block content %}
+{% load  static %}
+<div class="dashboard-content-one">
+    <div class="card height-auto">
+        <div class="card-body">
+            <div class="heading-layout1">
+                <div class="item-title">
+                    <h3>Are you sure you want to delete this student?</h3>
+                </div>
+            </div>
+            <form class="new-added-form" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    {% for field in form %}
+                    <div class="col-xl-3 col-lg-6 col-12 form-group">
+                        <label>{{ field.label }}</label>
+                        <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" placeholder="" class="form-control">
+                        <p style="color: red">{{ field.errors }}</p>
+                    </div>
+                    {% endfor %}
+                    <div style="color: yellow"> <h3>{{ object }}</h3> </div>
+                    <div class="col-12 form-group mg-t-8">
+                        <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Delete</button>
+                        <button type="reset" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Back</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+{% endblock %}

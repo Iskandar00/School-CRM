@@ -100,9 +100,9 @@
                                     <span class="flaticon-more-button-of-three-dots"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#"><i
-                                            class="fas fa-times text-orange-red"></i>Close</a>
-                                    <a class="dropdown-item" href="#"><i
+                                    <a class="dropdown-item" href="{% url 'students_delete-page' student_detail.pk %}"><i
+                                            class="fas fa-times text-orange-red"></i>Delete</a>
+                                    <a class="dropdown-item" href="{% url 'student_update-page' student_detail.pk %}"><i
                                             class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
                                     <a class="dropdown-item" href="#"><i
                                             class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>

@@ -11,6 +11,8 @@ class Command(BaseCommand):
         print('migrate')
         os.system('python manage.py migrate')
         print('users_generate')
+        os.system('python manage.py user_groups_generate')
+        print('user_groups_generate')
         os.system('python manage.py users_generate')
         print('subjects_generate')
         os.system('python manage.py subjects_generate')

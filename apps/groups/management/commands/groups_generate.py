@@ -38,19 +38,21 @@ class Command(BaseCommand):
                                                  last_name='Mufassayev',
                                                  gender='male',
                                                  father_name='Mufassayevich',
-                                                 student_group=StudentGroup.objects.filter(subject__name='Backend').last(),
+                                                 student_group=StudentGroup.objects.filter(
+                                                     subject__name='Backend').last(),
                                                  phone_number='+998901254567',
                                                  email='b1@b.bb',
                                                  address='Chilonzor')
-        CustomUser.objects.create_user(role='parent',
-                                       password='4',
-                                       first_name=f'Mufassa',
-                                       last_name=f'Sherov',
-                                       gender=f'male',
-                                       father_name='Sherbek',
-                                       child_id=student.pk,
-                                       phone_number='+998991235567',
-                                       email='d1@d.dd',
-                                       address=f'Sergely')
-
+        student.groups.set([1])
+        parent = CustomUser.objects.create_user(role='parent',
+                                                password='4',
+                                                first_name=f'Mufassa',
+                                                last_name=f'Sherov',
+                                                gender=f'male',
+                                                father_name='Sherbek',
+                                                child_id=student.pk,
+                                                phone_number='+998991235567',
+                                                email='d1@d.dd',
+                                                address=f'Sergely')
+        parent.groups.set([4])
         self.stdout.write(self.style.SUCCESS('student and parent created'))
