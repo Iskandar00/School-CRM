@@ -36,6 +36,8 @@ class StudentDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
 
 class StudentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = get_user_model()
+    fields = ['first_name', 'last_name', 'father_name', 'mother_name', 'gender', 'date_of_birth', 'email',
+              'phone_number', 'password', 'student_group', 'address', ]
     template_name = 'student_update.html'
     permission_required = ('users.delete_customuser')
     success_url = reverse_lazy('students_list-page')
