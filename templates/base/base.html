@@ -81,8 +81,8 @@
                     <a class="navbar-nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                        aria-expanded="false">
                         <div class="admin-title">
-                            <h5 class="item-title">Steven Zone</h5>
-                            <span>Admin</span>
+                            <h5 class="item-title">{{ request.user.first_name }}</h5>
+                            <span>{{ request.user.role }}</span>
                         </div>
                         <div class="admin-img">
                             <img src="{% static 'img/figure/admin.jpg' %}" alt="Admin">
@@ -260,8 +260,15 @@
             <div class="sidebar-menu-content">
                 <ul class="nav nav-sidebar-menu sidebar-toggle-view">
                     <li class="nav-item">
+                        {% if request.user.role == 'admin' %}
                         <a href="{% url 'profile-admin' %}" class="nav-link"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
-
+                        {% elif request.user.role == 'student' %}
+                        <a href="{% url 'profile-student' %}" class="nav-link"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
+                        {% elif request.user.role == 'parent' %}
+                        <a href="{% url 'profile-parent' %}" class="nav-link"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
+                        {% elif request.user.role == 'teacher' %}
+                        <a href="{% url 'profile-teacher' %}" class="nav-link"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
+                        {% endif %}
                     </li>
                     <li class="nav-item sidebar-nav-item">
                         <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Students</span></a>
@@ -291,7 +298,8 @@
                                     Teachers</a>
                             </li>
                             <li class="nav-item">
-                                <a href="add-teacher.html" class="nav-link"><i class="fas fa-angle-right"></i>Add
+                                <a href="{% url 'teachers_create-page' %}" class="nav-link"><i
+                                        class="fas fa-angle-right"></i>Add
                                     Teacher</a>
                             </li>
                             <li class="nav-item">
@@ -309,7 +317,8 @@
                                     Parents</a>
                             </li>
                             <li class="nav-item">
-                                <a href="add-parents.html" class="nav-link"><i class="fas fa-angle-right"></i>Add
+                                <a href="{% url 'parents_create-page' %}" class="nav-link"><i
+                                        class="fas fa-angle-right"></i>Add
                                     Parent</a>
                             </li>
                         </ul>

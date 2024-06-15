@@ -4,10 +4,11 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
+from apps.general.models import AbstractModel
 from apps.users.models import CustomUser
 
 
-class Payment(models.Model):
+class Payment(AbstractModel):
 
     class MonthChoices(models.IntegerChoices):
         January = 1, 'january'

@@ -1,11 +1,13 @@
 from django.contrib.postgres.fields import ArrayField
 from django.core.exceptions import ValidationError
 from django.db import models
+
+from apps.general.models import AbstractModel
 from apps.subjects.models import Subject
 from apps.users.models import CustomUser
 
 
-class StudentGroup(models.Model):
+class StudentGroup(AbstractModel):
     class Weekdays(models.IntegerChoices):
         Mo = 0, 'monday'
         Tu = 1, 'tuesday'

@@ -1,8 +1,10 @@
 from django.core.validators import MinValueValidator
 from django.db import models
 
+from apps.general.models import AbstractModel
 
-class Subject(models.Model):
+
+class Subject(AbstractModel):
     price = models.DecimalField(max_digits=20, decimal_places=2, validators=[MinValueValidator(0)],
                                 help_text="add in UZS")
     name = models.CharField(max_length=75)
@@ -13,7 +15,7 @@ class Subject(models.Model):
         return self.name
 
 
-class Resource(models.Model):
+class Resource(AbstractModel):
     subject = models.ForeignKey('subjects.Subject', on_delete=models.PROTECT, related_name='resource')
     author = models.CharField(max_length=75, blank=True)
     name = models.CharField(max_length=100)

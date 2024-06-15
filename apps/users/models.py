@@ -3,12 +3,13 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 from django.db import models
 
+from apps.general.models import AbstractModel
 from apps.general.services import normalize_text
 from apps.general.validate import phone_number_validate
 from apps.users.managers import CustomUserManager
 
 
-class CustomUser(AbstractUser):
+class CustomUser(AbstractUser, AbstractModel):
     class RoleChoices(models.TextChoices):
         Admin = 'admin'
         Teacher = 'teacher'
@@ -62,10 +63,5 @@ class CustomUser(AbstractUser):
         if self.role == self.RoleChoices.Parent.value and self.child is None:
             raise ValidationError({'child': 'Child kiriting'})
 
-    @classmethod
-    def get_normalize_fields(cls):
-        return ['first_name', 'last_name', 'father_name', 'mother_name', 'address']
 
-    def save(self, *args, **kwargs):
-        normalize_text(self)
-        super().save(*args, **kwargs)
+

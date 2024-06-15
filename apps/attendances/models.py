@@ -1,10 +1,11 @@
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
 
+from apps.general.models import AbstractModel
 from apps.users.models import CustomUser
 
 
-class Attendance(models.Model):
+class Attendance(AbstractModel):
     class StatusChoices(models.TextChoices):
         Because_of = 'because_of'
         Without_reason = 'without_reason'

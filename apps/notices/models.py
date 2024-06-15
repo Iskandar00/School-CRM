@@ -1,11 +1,12 @@
 from django.db import models
 from django.conf import settings
 
+from apps.general.models import AbstractModel
 from apps.general.services import normalize_text
 from apps.general.validate import phone_number_validate
 
 
-class Notification(models.Model):
+class Notification(AbstractModel):
     class Type(models.IntegerChoices):
         EXAM_RESULT = 0, 'exam result'  # himself
         ON_ATTENDANCE = 1, 'on attendance'  # for parent
@@ -30,7 +31,7 @@ class Notification(models.Model):
     exam_result = models.ForeignKey('exams.ExamResult', on_delete=models.CASCADE)
 
 
-class Message(models.Model):
+class Message(AbstractModel):
     from_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,
                                   null=True, related_name='from_messages')
     to_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,
