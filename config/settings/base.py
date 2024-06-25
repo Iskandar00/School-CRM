@@ -9,7 +9,9 @@ SECRET_KEY = os.environ['SECRET_KEY']
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['f97a-5-133-120-251.ngrok-free.app', '127.0.0.1']
+
+CSRF_TRUSTED_ORIGINS = ['https://f97a-5-133-120-251.ngrok-free.app/']
 
 INSTALLED_APPS = [
     'modeltranslation',

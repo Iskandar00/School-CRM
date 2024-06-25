@@ -5,7 +5,7 @@ from apps.notices.models import Notification, Message
 
 
 class NotificationCreateView(CreateView):
-    template_name = 'notice-board.html'
+    template_name = 'chat.html'
     model = Notification
     fields = '__all__'
     success_url = 'users-account-page'

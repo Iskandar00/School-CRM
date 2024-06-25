@@ -40,8 +40,10 @@ class CustomUser(AbstractUser, AbstractModel):
                                       related_name='students')
 
     # role = parent
-    child = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
+    child = models.ManyToManyField('self')
 
+    longitude = models.FloatField(blank=True, null=True)
+    latitude = models.FloatField(blank=True, null=True)
     phone_number = models.CharField(max_length=13, validators=[phone_number_validate], unique=True)
     email = models.EmailField(unique=True)
     address = models.TextField(max_length=2000)

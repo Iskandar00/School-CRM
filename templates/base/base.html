@@ -30,6 +30,30 @@
     <link rel="stylesheet" href="{% static '../static/style.css' %}">
     <!-- Modernize js -->
     <script src="{% static 'js/modernizr-3.6.0.min.js' %}"></script>
+
+    <style>
+        .select-btn{
+        background-color:transparent;
+        color:black;
+        border:none;
+        font-size:18px;
+        }
+        .select-btn:hover{
+        background-color:transparent;
+        color:black;
+        }
+
+        .select-btn option{
+        background-color:transparent;
+        color:black;
+        }
+        .go-btn{
+        background-color:transparent;
+        color:black;
+        font-size:18px;
+        border:none;
+        }
+    </style>
 </head>
 <body>
 <!-- Preloader Start Here -->
@@ -235,13 +259,34 @@
                     </div>
                 </li>
                 <li class="navbar-item dropdown header-language">
-                    <a class="navbar-nav-link dropdown-toggle" href="#" role="button"
-                       data-toggle="dropdown" aria-expanded="false"><i class="fas fa-globe-americas"></i>EN</a>
+                    <form class="navbar-nav-link dropdown-toggle" action="{% url 'set_language' %}" method="post">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{redirect_to }}">
+                        <select name="language" class="btn btn-primary select-btn">
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% get_available_languages as LANGUAGES %}
+                            {% get_language_info_list for LANGUAGES as languages %}
+                            <div class="dropdown-menu dropdown-menu-right">
+                                {% for language in languages %}
+                                <option class="dropdown-item" value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+                                    {{ language.name_local }} ({{ language.code }})
+                                </option>
+                                {% endfor %}
+                            </div>
+                        </select>
+                            <input type="submit" value="Go" class="btn btn-primary go-btn">
+                    </form>
+
+                </li>
+
+                <li class="navbar-item dropdown header-language">
+                    <a class="navbar-nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                       aria-expanded="false"><i class="fas fa-globe-americas"></i> EN</a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#">English</a>
-                        <a class="dropdown-item" href="#">Spanish</a>
-                        <a class="dropdown-item" href="#">Franchis</a>
-                        <a class="dropdown-item" href="#">Chiness</a>
+                        <a class="dropdown-item" href="{% url 'set_language' %}?language=en">English</a>
+                        <a class="dropdown-item" href="{% url 'set_language' %}?language=es">Spanish</a>
+                        <a class="dropdown-item" href="{% url 'set_language' %}?language=fr">Français</a>
+                        <a class="dropdown-item" href="{% url 'set_language' %}?language=zh">中文</a>
                     </div>
                 </li>
             </ul>
@@ -332,26 +377,27 @@
                                     Book</a>
                             </li>
                             <li class="nav-item">
-                                <a href="add-book.html" class="nav-link"><i class="fas fa-angle-right"></i>Add New
+                                <a href="{% url 'resources_create-page' %}" class="nav-link"><i
+                                        class="fas fa-angle-right"></i>Add New
                                     Book</a>
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item">
+                        <a href="{% url 'lessons_list-page' %}" class="nav-link"><i
+                                class="flaticon-open-book"></i><span>Lessons</span></a>
+                    </li>
                     <li class="nav-item sidebar-nav-item">
-                        <a href="#" class="nav-link"><i class="flaticon-technological"></i><span>Acconunt</span></a>
+                        <a href="#" class="nav-link"><i class="flaticon-technological"></i><span>Payment</span></a>
                         <ul class="nav sub-group-menu">
                             <li class="nav-item">
                                 <a href="{% url 'payments_list-page' %}" class="nav-link"><i
-                                        class="fas fa-angle-right"></i>All Fees
-                                    Collection</a>
+                                        class="fas fa-angle-right"></i>All Payments</a>
                             </li>
                             <li class="nav-item">
-                                <a href="all-expense.html" class="nav-link"><i
-                                        class="fas fa-angle-right"></i>Expenses</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="add-expense.html" class="nav-link"><i class="fas fa-angle-right"></i>Add
-                                    Expenses</a>
+                                <a href="{% url 'payments_create-page' %}" class="nav-link"><i
+                                        class="fas fa-angle-right"></i>Add
+                                    Payment</a>
                             </li>
                         </ul>
                     </li>
@@ -365,7 +411,8 @@
                                     Groups</a>
                             </li>
                             <li class="nav-item">
-                                <a href="add-class.html" class="nav-link"><i class="fas fa-angle-right"></i>Add New
+                                <a href="{% url 'group_create-page' %}" class="nav-link"><i
+                                        class="fas fa-angle-right"></i>Add New
                                     Groups</a>
                             </li>
                         </ul>

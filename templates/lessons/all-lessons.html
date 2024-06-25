@@ -1,10 +1,10 @@
-        {% extends 'base/base.html' %}
-        {% block content %}
-        {% load static %}
+{% extends 'base/base.html' %}
+{% block content %}
+{% load static %}
 <div class="dashboard-content-one">
     <!-- Breadcubs Area Start Here -->
     <div class="breadcrumbs-area">
-        <h3>Library</h3>
+        <h3>Lesson</h3>
         <ul>
             <li>
                 <a href="index.html">Home</a>
@@ -18,7 +18,7 @@
         <div class="card-body">
             <div class="heading-layout1">
                 <div class="item-title">
-                    <h3>All Books</h3>
+                    <h3>All Lessons</h3>
                 </div>
             </div>
             <form class="mg-b-20">
@@ -47,40 +47,34 @@
                                 <label class="form-check-label">ID</label>
                             </div>
                         </th>
-                        <th>Book Name</th>
+                        <th>Title</th>
                         <th>Subject</th>
-                        <th>Author</th>
-                        <th>Class</th>
-                        <th>Published</th>
-                        <th>Creating Date</th>
-                        <th>Link</th>
+                        <th>Ordering Number</th>
+                        <th>Content</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for resource in object_list %}
+                    {% for lesson in object_list %}
                     <tr>
                         <td>
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input">
-                                <label class="form-check-label">{{ resource.pk }}</label>
+                                <label class="form-check-label">{{ lesson.pk }}</label>
                             </div>
                         </td>
-                        <td>{{ resource.name }}</td>
-                        <td>{{ resource.subject }}</td>
-                        <td>{{ resource.author }}</td>
-                        <td>{{ resource.month }}</td>
-                        <td>{{ resource.published_at }}</td>
-                        <td>{{ resource.created_at }}</td>
-                        <td><a href="{{ resource.url }}">{{ resource.url }}</a> </td>
+                        <td>{{ lesson.title }}</td>
+                        <td>{{ lesson.subject }}</td>
+                        <td>{{ lesson.ordering_number }}</td>
+                        <td>{{ lesson.content }}</td>
                         <td>
                             <div class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     <span class="flaticon-more-button-of-three-dots"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="{% url 'resources_delete-page' resource.pk %}"><i class="fas fa-times text-orange-red"></i>Delete</a>
-                                    <a class="dropdown-item" href="{% url 'resources_update-page' resource.pk %}"><i class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
+                                    <a class="dropdown-item" href="#"><i class="fas fa-times text-orange-red"></i>Delete</a>
+                                    <a class="dropdown-item" href="#"><i class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
                                 </div>
                             </div>
                         </td>

@@ -50,9 +50,9 @@ class Command(BaseCommand):
                                                 last_name=f'Sherov',
                                                 gender=f'male',
                                                 father_name='Sherbek',
-                                                child_id=student.pk,
                                                 phone_number='+998991235567',
                                                 email='d1@d.dd',
                                                 address=f'Sergely')
         parent.groups.set([4])
+        parent.child.set([student.pk])
         self.stdout.write(self.style.SUCCESS('student and parent created'))
