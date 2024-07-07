@@ -33,7 +33,11 @@
             </div>
             <div class="single-info-details">
                 <div class="item-img">
+                    {% if object.image %}
+                    <img src="{{ object.image.url }}" alt="student">
+                    {% else %}
                     <img src="{% static 'img/figure/student1.jpg' %}" alt="student">
+                    {% endif %}
                 </div>
                 <div class="item-content">
                     <div class="header-inline item-header">

@@ -152,66 +152,22 @@
                             <h6 class="item-title">05 Message</h6>
                         </div>
                         <div class="item-content">
-                            <div class="media">
-                                <div class="item-img bg-skyblue author-online">
-                                    <img src="{% static 'img/figure/student11.png' %}" alt="img">
-                                </div>
-                                <div class="media-body space-sm">
-                                    <div class="item-title">
-                                        <a href="#">
-                                            <span class="item-name">Maria Zaman</span>
-                                            <span class="item-time">18:30</span>
-                                        </a>
+                            {% for msg in user_messages %}
+                                <div class="media">
+                                    <div class="item-img bg-skyblue author-online">
+                                        <img src="{% static 'img/figure/student11.png' %}" alt="img">
                                     </div>
-                                    <p>What is the reason of buy this item.
-                                        Is it usefull for me.....</p>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="item-img bg-yellow author-online">
-                                    <img src="{% static 'img/figure/student12.png' %}" alt="img">
-                                </div>
-                                <div class="media-body space-sm">
-                                    <div class="item-title">
-                                        <a href="#">
-                                            <span class="item-name">Benny Roy</span>
-                                            <span class="item-time">10:35</span>
-                                        </a>
+                                    <div class="media-body space-sm">
+                                        <div class="item-title">
+                                            <a href="{% url 'messages_list-page' %}?chat_id={{msg.chat_id}}">
+                                                <span class="item-name">{{ msg.sender }}</span>
+                                                <span class="item-time">{{ msg.created_at }}</span>
+                                            </a>
+                                        </div>
+                                        <p>{{ msg.message }}</p>
                                     </div>
-                                    <p>What is the reason of buy this item.
-                                        Is it usefull for me.....</p>
                                 </div>
-                            </div>
-                            <div class="media">
-                                <div class="item-img bg-pink">
-                                    <img src="{% static 'img/figure/student13.png' %}" alt="img">
-                                </div>
-                                <div class="media-body space-sm">
-                                    <div class="item-title">
-                                        <a href="#">
-                                            <span class="item-name">Steven</span>
-                                            <span class="item-time">02:35</span>
-                                        </a>
-                                    </div>
-                                    <p>What is the reason of buy this item.
-                                        Is it usefull for me.....</p>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="item-img bg-violet-blue">
-                                    <img src="{% static 'img/figure/student11.png' %}" alt="img">
-                                </div>
-                                <div class="media-body space-sm">
-                                    <div class="item-title">
-                                        <a href="#">
-                                            <span class="item-name">Joshep Joe</span>
-                                            <span class="item-time">12:35</span>
-                                        </a>
-                                    </div>
-                                    <p>What is the reason of buy this item.
-                                        Is it usefull for me.....</p>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </li>
@@ -274,7 +230,7 @@
                                 {% endfor %}
                             </div>
                         </select>
-                            <input type="submit" value="Go" class="btn btn-primary go-btn">
+                        <input type="submit" value="Go" class="btn btn-primary go-btn">
                     </form>
 
                 </li>

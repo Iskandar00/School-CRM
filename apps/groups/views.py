@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 
@@ -6,8 +7,25 @@ from apps.groups.models import StudentGroup
 
 
 class GroupListView(ListView):
-    model = StudentGroup
     template_name = 'all-class.html'
+
+    def get_queryset(self):
+        queryset = StudentGroup.objects.all()
+        search_id = self.request.GET.get('search_id')
+        search_name = self.request.GET.get('search_name')
+        teacher_name = self.request.GET.get('teacher_name')
+
+        if search_id:
+            queryset = queryset.filter(id__startswith=search_id)
+
+        if search_name:
+            queryset = queryset.filter(subject__name__icontains=search_name)
+
+        if teacher_name:
+            queryset = queryset.filter(Q(teacher__last_name__endswith=teacher_name)
+                                       |
+                                       Q(teacher__last_name__endswith=teacher_name))
+        return queryset
 
 
 class StudentGroupCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):

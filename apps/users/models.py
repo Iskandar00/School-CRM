@@ -40,7 +40,7 @@ class CustomUser(AbstractUser, AbstractModel):
                                       related_name='students')
 
     # role = parent
-    child = models.ManyToManyField('self')
+    child = models.ManyToManyField('self', blank=True)
 
     longitude = models.FloatField(blank=True, null=True)
     latitude = models.FloatField(blank=True, null=True)

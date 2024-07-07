@@ -28,7 +28,7 @@ class ParentsListView(ListView):
 
         if search_name:
             queryset = queryset.filter(
-                Q   (first_name__icontains=search_name)
+                Q(first_name__icontains=search_name)
                 |
                 Q(last_name__icontains=search_name)
                 |

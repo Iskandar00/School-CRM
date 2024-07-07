@@ -1,8 +1,8 @@
 import os
-from django.db.models.signals import post_delete, pre_save
+from django.db.models.signals import post_delete
 from django.dispatch import receiver
 
-from apps.general.services import delete_file_after_delete_obj, normalize_text
+from apps.general.services import delete_file_after_delete_obj
 from apps.users.models import CustomUser
 
 

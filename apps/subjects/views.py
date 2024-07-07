@@ -1,18 +1,55 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 
 from apps.subjects.models import Resource, Subject
+from apps.subjects.forms import SubjectCreateForm
 
 
 class SubjectListView(ListView):
-    model = Subject
     template_name = 'all-subject.html'
+    extra_context = {'form': SubjectCreateForm}
+
+    def post(self):
+        self.request.POST.get()
+
+    def get_queryset(self):
+        queryset = Subject.objects.all()
+        search_id = self.request.GET.get('search_id')
+        name = self.request.GET.get('name')
+        published_at = self.request.GET.get('creating_date')
+
+        if search_id:
+            queryset = queryset.filter(id__startswith=search_id)
+
+        if name:
+            queryset = queryset.filter(name__icontains=name)
+
+        if published_at:
+            queryset = queryset.filter(published_at=published_at)
+        return queryset
 
 
 class ResourceListView(ListView):
-    model = Resource
     template_name = 'all-book.html'
+
+    def get_queryset(self):
+        queryset = Resource.objects.all()
+        search_id = self.request.GET.get('search_id')
+        search_name = self.request.GET.get('search_name')
+        creating_date = self.request.GET.get('creating_date')
+
+        if search_id:
+            queryset = queryset.filter(id__startswith=search_id)
+
+        if search_name:
+            queryset = queryset.filter(
+                Q(name__icontains=search_name)
+            )
+        if creating_date:
+            queryset = queryset.filter(created_at=creating_date)
+        return queryset
 
 
 class ResourceCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):

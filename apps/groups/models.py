@@ -27,7 +27,7 @@ class StudentGroup(AbstractModel):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'from {self.start_time} to {self.end_time} group'
+        return f'{self.start_time.strftime("%H:%M")}~{self.end_time.strftime("%H:%M")}'
 
     def clean(self):
         if self.end_time <= self.start_time:
